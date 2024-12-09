@@ -1,0 +1,271 @@
+@import url("https://fonts.googleapis.com/css2?family=Dangrek&family=Holtwood+One+SC&family=Nosifer&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik+Mono+One&family=Rubik+Spray+Paint&family=Six+Caps&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+
+/* --------------------------------------- General Styling --------------------------------------- */
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #ffe0b1; /* רקע נעים לעין */
+    color: #333; /* צבע טקסט */
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 600; /* כותרות כבדות יותר */
+    color: #2c3e50;
+}
+
+a {
+    text-decoration: none;
+    color: #e74c3c;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #c0392b;
+}
+
+/* --------------------------------------- Navbar Styling --------------------------------------- */
+.navbar {
+    background-color: #2c3e50; /* רקע כהה לנאבבאר */
+    padding: 1.5em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .nav-link {
+    color: #f9f9f9; /* צבע טקסט לבן */
+    font-weight: 600;
+    margin-right: 1em;
+    transition: color 0.3s ease;
+    font-size: 1em;
+}
+
+.navbar .nav-link:hover {
+    color: #e74c3c; /* צבע משני */
+}
+
+.navbar-brand {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #e74c3c;
+    font-family: "Nosifer", sans-serif;
+}
+
+/* --------------------------------------- Card Styling --------------------------------------- */
+.flip-card {
+    background-color: transparent;
+    width: 18rem;
+    height: 400px;
+    perspective: 1000px;
+    font-family: "Poppins", sans-serif;
+    border-radius: 1rem;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s ease;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg); /* מצב התחלתי */
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: translateZ(10px) rotateX(20deg) rotateY(20deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.flip-card-front {
+    background: linear-gradient(120deg, #e74c3c 30%, #f39c12 70%);
+    color: white;
+}
+
+.flip-card-back {
+    background: linear-gradient(120deg, #3498db 30%, #2ecc71 70%);
+    color: white;
+    transform: rotateY(180deg);
+}
+
+.card-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+.card-text-logo {
+    font-family: "Nosifer", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+.card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.btn-front {
+    background-color: #e74c3c; /* אדום */
+    color: #fff;
+    border: none;
+}
+
+.btn-front:hover {
+    background-color: #c0392b; /* גוון כהה יותר של אדום */
+}
+.btn-front:focus,
+.btn-front:active {
+    background-color: #e74c3c !important; /* צבע אדום שנשאר גם בלחיצה */
+    box-shadow: none !important; /* להסיר צללים בלחיצה */
+    outline: none; /* להסיר את הקו סביב הכפתור בעת הפוקוס */
+}
+
+.btn-back {
+    background-color: #3498db; /* כחול */
+    color: #fff;
+    border: none;
+}
+
+.btn-back:hover {
+    background-color: #2980b9; /* גוון כהה יותר של כחול */
+}
+
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+/* --------------------------------------- Scrollable List Styling --------------------------------------- */
+.scrollable-list {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px; /* שמירה על מרווח לפס הגלילה */
+    background-color: rgba(255, 174, 145, 0.1);
+}
+
+/* עיצוב עבור פס הגלילה */
+.scrollable-list::-webkit-scrollbar {
+    width: 8px; /* רוחב פס הגלילה */
+    background-color: #f1f1f1; /* צבע הרקע של פס הגלילה */
+    border-radius: 4px; /* עיצוב הפינות של הרקע של פס הגלילה */
+}
+
+/* עיצוב עבור המסלול של פס הגלילה */
+.scrollable-list::-webkit-scrollbar-track {
+    background-color: #e6e6e6; /* צבע המסלול */
+    border-radius: 4px; /* עיגול הפינות של המסלול */
+}
+
+/* עיצוב עבור האצבעית (Thumb) של פס הגלילה */
+.scrollable-list::-webkit-scrollbar-thumb {
+    background-color: #888; /* צבע האצבעית */
+    border-radius: 4px; /* עיגול הפינות של האצבעית */
+}
+
+/* עיצוב לאצבעית כשעוברים עם העכבר עליה */
+.scrollable-list::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* צבע האצבעית במעבר עכבר */
+}
+
+.list-group-item {
+    background-color: transparent;
+    padding: 1.2em 1em;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+    color: #3d3d3d;
+    line-height: 1.5;
+}
+
+.label {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #5a5a5a;
+    text-transform: uppercase;
+    margin-right: 10px;
+}
+/* --------------------------------------- #res Styling --------------------------------------- */
+#res {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+    gap: 2.8em;
+    margin: 9.5em 0;
+}
+
+/* --------------------------------------- Footer Styling --------------------------------------- */
+footer {
+    background-color: #2c3e50;
+    color: #f9f9f9;
+    text-align: center;
+    padding: 1.5em 0;
+    font-size: 0.9em;
+}
+
+footer a {
+    color: #e74c3c;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #c0392b;
+}
+
+/* ------------------------------------ */
+@media (max-width: 320px) {
+    /* שינוי רקע הנאבאר במסך קטן */
+    .navbar {
+        background-color: #34495e; /* צבע כהה שונה לנאבאר */
+        padding: 2em 0; /* להקטין את הרווח */
+    }
+
+    .flip-card {
+        background-color: transparent;
+        width: 17rem;
+        height: 400px;
+        perspective: 1000px;
+        font-family: "Poppins", sans-serif;
+        border-radius: 1rem;
+    }
+}
+.btn-search {
+    background-color: #e74c3c; /* אדום */
+    color: white;
+    border: none;
+    padding: 0.8em 1.2em;
+    font-weight: 600;
+    border-radius: 0.5em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* שינוי צבע הכפתור במעבר עכבר */
+.btn-search:hover {
+    background-color: #c0392b; /* אדום כהה יותר במעבר */
+    transform: scale(1.05); /* הגדלה קלה בעת מעבר עכבר */
+}
+
+/* מצב כאשר הכפתור לא פעיל או בעת ממורח */
+.btn-search:focus,
+.btn-search:active {
+    background-color: #e74c3c !important;
+    box-shadow: none;
+    outline: none;
+}

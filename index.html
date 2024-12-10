@@ -50,12 +50,7 @@
                     >
                         <ul class="navbar-nav m-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a
-                                    class="nav-link active"
-                                    aria-current="page"
-                                    href="#"
-                                    >Home</a
-                                >
+                                <a class="nav-link active" href="#">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">About</a>
@@ -72,9 +67,19 @@
                                 aria-label="Search"
                                 id="searchInput"
                             />
-                            <button class="btn-search" type="submit">
+                            <select class="form-select me-2" id="regionFilter">
+                                <option value="" selected disabled>
+                                    Filter by Region
+                                </option>
+                                <option value="Africa">Africa</option>
+                                <option value="Asia">Asia</option>
+                                <option value="Europe">Europe</option>
+                                <option value="Oceania">Oceania</option>
+                            </select>
+
+                            <!-- <button class="btn-search" type="submit">
                                 Search
-                            </button>
+                            </button> -->
                         </form>
                     </div>
                 </div>

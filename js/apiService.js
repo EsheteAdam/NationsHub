@@ -1,12 +1,13 @@
 import { urlAllCountries } from "./apiEndpoints.js";
 import { CountryClass } from "./ClassCountry.js";
 
+// יצירת אובייקטים של כל מדינה
 const createClassObjects = (data) => {
     return data.map((item) => {
         const country = new CountryClass(
             item.name.common,
-            item.flags?.svg || "N/A", // בדיקה של דגל המדינה
-            item.coatOfArms?.svg || "https://via.placeholder.com/50", // שימוש בתמונה חלופית אם סמל לא קיים
+            item.flags?.svg || "N/A",
+            item.coatOfArms?.svg || "https://via.placeholder.com/50",
             item.capital?.[0] || "N/A",
             item.population ? item.population.toLocaleString() : "N/A",
             item.area ? item.area.toLocaleString() : "N/A",
@@ -26,13 +27,12 @@ const createClassObjects = (data) => {
     });
 };
 
+// קריאה לכל המדינות
 export const fetchAllCountries = async () => {
     try {
-        // בדיקה אם יש נתונים ב-Local Storage
         const cachedData = localStorage.getItem("countries");
         if (cachedData) {
             console.log("Using cached countries data.");
-            // המרת המידע מ-JSON לאובייקטי CountryClass
             const cachedCountries = JSON.parse(cachedData);
             return cachedCountries.map(
                 (countryData) =>
@@ -61,10 +61,9 @@ export const fetchAllCountries = async () => {
 
         const countriesArray = createClassObjects(data);
 
-        // שמירת הנתונים ב-Local Storage
         localStorage.setItem("countries", JSON.stringify(countriesArray));
 
-        return countriesArray; // החזרת המערך
+        return countriesArray;
     } catch (error) {
         console.error("Error fetching countries:", error);
         alert(`Unable to display all countries, please try again later`);

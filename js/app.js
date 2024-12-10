@@ -5,6 +5,8 @@ const init = async () => {
     const countriesArray = await getAllCountries();
     if (countriesArray) {
         renderAllCountries(countriesArray);
+        searchCountryByName(countriesArray); // אתחול החיפוש
+        setupRegionChangeListener(countriesArray); // אתחול מאזין לשינוי ביבשת
     }
 };
 
@@ -26,6 +28,59 @@ const renderAllCountries = (countriesArray) => {
 
     countriesArray.forEach((country) => {
         country.renderCountry();
+    });
+};
+
+// פונקציה לחיפוש מדינות לפי שם
+const searchCountryByName = (countriesArray) => {
+    const searchInput = document.getElementById("searchInput");
+    const searchForm = document.getElementById("searchForm");
+
+    searchForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+    });
+
+    searchInput.addEventListener("input", () => {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+
+        if (!searchTerm) {
+            renderAllCountries(countriesArray);
+            return;
+        }
+
+        const filteredCountries = countriesArray.filter((country) =>
+            country.countryName.toLowerCase().includes(searchTerm)
+        );
+
+        renderAllCountries(filteredCountries);
+    });
+};
+
+// פונקציה לטיפול בשינוי ביבשת
+const handleRegionChange = (event, countriesArray) => {
+    const selectedRegion = event.target.value;
+    filterCountriesByRegion(countriesArray, selectedRegion);
+};
+
+// פילטר מדינות לפי יבשת
+const filterCountriesByRegion = (countriesArray, selectedRegion) => {
+    if (!selectedRegion) {
+        renderAllCountries(countriesArray);
+        return;
+    }
+
+    const filteredCountries = countriesArray.filter(
+        (country) => country.countryRegion === selectedRegion
+    );
+
+    renderAllCountries(filteredCountries);
+};
+
+// מאזין לשינוי ביבשת
+const setupRegionChangeListener = (countriesArray) => {
+    const regionFilter = document.getElementById("regionFilter");
+    regionFilter.addEventListener("change", (event) => {
+        handleRegionChange(event, countriesArray);
     });
 };
 

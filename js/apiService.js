@@ -1,72 +1,63 @@
-import { urlAllCountries } from "./apiEndpoints.js";
 import { CountryClass } from "./ClassCountry.js";
+import { urlAllCountries } from "./apiEndpoints.js";
 
-// יצירת אובייקטים של כל מדינה
-const createClassObjects = (data) => {
-    return data.map((item) => {
-        const country = new CountryClass(
-            item.name.common,
-            item.flags?.svg || "N/A",
-            item.coatOfArms?.svg || "https://via.placeholder.com/50",
-            item.capital?.[0] || "N/A",
-            item.population ? item.population.toLocaleString() : "N/A",
-            item.area ? item.area.toLocaleString() : "N/A",
-            item.region,
-            item.subregion,
-            item.languages ? Object.values(item.languages).join(", ") : "N/A",
-            item.currencies
-                ? Object.values(item.currencies)
+// פונקציה להצגת מדינות בכרטיסים
+export const renderCountries = (countries) => {
+    const resDiv = document.getElementById("res");
+    resDiv.innerHTML = ""; // לנקות את התוכן הקודם
+
+    countries.forEach((country) => {
+        const countryCard = country.renderCountryCard(); // משתמש במתודה renderCountryCard של כל אובייקט CountryClass
+        resDiv.innerHTML += countryCard; // מוסיף את התוכן לכל כרטיס
+    });
+};
+
+// פונקציה לקבלת כל המדינות
+export const fetchAllCountries = async () => {
+    try {
+        const response = await fetch(urlAllCountries);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        const countries = mappingData(data); // שימוש במערך שנוצר
+        renderCountries(countries); // הוספת הכרטיסים לדף
+    } catch (error) {
+        console.error("Failed to fetch countries:", error.message);
+    }
+};
+
+// פונקציה למיפוי הנתונים (המרת נתונים לאובייקטים של CountryClass)
+export const mappingData = (data) => {
+    const dataArray = data.map((country) => {
+        return new CountryClass(
+            country.name.common,
+            country.capital ? country.capital : "No Capital",
+            country.flags.svg,
+            country.coatOfArms ? country.coatOfArms.svg : "no",
+            country.region,
+            country.subregion,
+            country.population.toLocaleString(),
+            country.area.toLocaleString(),
+            country.currencies
+                ? Object.values(country.currencies)
                       .map(
                           (currency) =>
                               `${currency.name} (${currency.symbol || "N/A"})`
                       )
                       .join(", ")
-                : "N/A"
+                : "N/A",
+            country.languages
+                ? Object.values(country.languages).join(", ")
+                : "N/A",
+            country.tld,
+            country.independent ? "👍" : "👎",
+            country.unMember ? "👍" : "👎"
         );
-        return country;
     });
-};
 
-// קריאה לכל המדינות
-export const fetchAllCountries = async () => {
-    try {
-        const cachedData = localStorage.getItem("countries");
-        if (cachedData) {
-            console.log("Using cached countries data.");
-            const cachedCountries = JSON.parse(cachedData);
-            return cachedCountries.map(
-                (countryData) =>
-                    new CountryClass(
-                        countryData.countryName,
-                        countryData.countryFlag,
-                        countryData.countrySymbol,
-                        countryData.countryCapital,
-                        countryData.countryPop,
-                        countryData.countryArea,
-                        countryData.countryRegion,
-                        countryData.countrySubregion,
-                        countryData.countryLanguages,
-                        countryData.countryCurrencies
-                    )
-            );
-        }
-
-        const res = await fetch(urlAllCountries);
-        if (!res.ok) {
-            throw new Error(
-                `HTTP error! status: ${res.status} - ${res.statusText}`
-            );
-        }
-        const data = await res.json();
-
-        const countriesArray = createClassObjects(data);
-
-        localStorage.setItem("countries", JSON.stringify(countriesArray));
-
-        return countriesArray;
-    } catch (error) {
-        console.error("Error fetching countries:", error);
-        alert(`Unable to display all countries, please try again later`);
-        throw error;
-    }
+    return dataArray;
 };

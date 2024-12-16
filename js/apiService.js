@@ -12,19 +12,34 @@ export const renderCountries = (countries) => {
     });
 };
 
-// פונקציה לקבלת כל המדינות
+// פונקציה לקבלת כל המדינות עם Cache
 export const fetchAllCountries = async () => {
     try {
-        const response = await fetch(urlAllCountries);
+        // בדיקה אם הנתונים קיימים ב-LocalStorage
+        const cachedData = localStorage.getItem("countriesData");
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+        if (cachedData) {
+            // שימוש בנתונים מקומיים
+            console.log("Using cached data");
+            const countries = mappingData(JSON.parse(cachedData));
+            renderCountries(countries);
+        } else {
+            // במידה ואין נתונים שמורים, מבצעים בקשה ל-API
+            console.log("Fetching data from API");
+            const response = await fetch(urlAllCountries);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            // שמירה ב-LocalStorage
+            localStorage.setItem("countriesData", JSON.stringify(data));
+
+            const countries = mappingData(data);
+            renderCountries(countries);
         }
-
-        const data = await response.json();
-
-        const countries = mappingData(data); // שימוש במערך שנוצר
-        renderCountries(countries); // הוספת הכרטיסים לדף
     } catch (error) {
         console.error("Failed to fetch countries:", error.message);
     }
@@ -34,14 +49,14 @@ export const fetchAllCountries = async () => {
 export const mappingData = (data) => {
     const dataArray = data.map((country) => {
         return new CountryClass(
-            country.name.common,
-            country.capital ? country.capital : "No Capital",
-            country.flags.svg,
-            country.coatOfArms ? country.coatOfArms.svg : "no",
-            country.region,
-            country.subregion,
-            country.population.toLocaleString(),
-            country.area.toLocaleString(),
+            country.name?.common || "No Name", // בדיקה אם שם קיים
+            country.capital?.[0] || "No Capital", // מתקן את הבעיה עם capital, כי היא מערך
+            country.flags?.svg || "/assets/images/no-flag.png", // בדיקה אם דגל קיים
+            country.coatOfArms?.svg || "/assets/images/no-symbol.png", // סמל או תמונה חלופית
+            country.region || "N/A", // בדיקה אם region קיים
+            country.subregion || "N/A", // בדיקה אם subregion קיים
+            country.population ? country.population.toLocaleString() : "N/A", // בדיקה אם אוכלוסייה קיימת
+            country.area ? country.area.toLocaleString() : "N/A", // בדיקה אם שטח קיים
             country.currencies
                 ? Object.values(country.currencies)
                       .map(
@@ -49,15 +64,23 @@ export const mappingData = (data) => {
                               `${currency.name} (${currency.symbol || "N/A"})`
                       )
                       .join(", ")
-                : "N/A",
+                : "N/A", // מיפוי המטבעות עם בדיקה שהם קיימים
             country.languages
                 ? Object.values(country.languages).join(", ")
-                : "N/A",
-            country.tld,
-            country.independent ? "👍" : "👎",
-            country.unMember ? "👍" : "👎"
+                : "N/A", // בדיקה אם שפות קיימות
+            country.tld?.[0] || "N/A", // בדיקה אם סיומת (TLD) קיימת
+            country.independent !== undefined
+                ? country.independent
+                    ? "Yes"
+                    : "No"
+                : "N/A", // בדיקה אם הערך independent קיים
+            country.unMember !== undefined
+                ? country.unMember
+                    ? "Yes"
+                    : "No"
+                : "N/A" // בדיקה אם הערך unMember קיים
         );
     });
 
-    return dataArray;
+    return dataArray; // מחזיר את המערך המעובד
 };

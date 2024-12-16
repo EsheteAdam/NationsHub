@@ -1,24 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Bangers&family=Dangrek&family=Holtwood+One+SC&family=Nosifer&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik+Mono+One&family=Rubik+Spray+Paint&family=Six+Caps&display=swap");
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* הגדרה כללית של גובה ורוחב */
-html,
 body {
-    width: 100%;
-    height: 100%;
-}
-body {
-    font-family: sans-serif "serif";
+    font-family: sans-serif, "serif";
+    background-color: #2c3e50; /* צבע כהה שמתואם לשאר האתר */
+    color: #f9f9f9; /* צבע טקסט בהיר */
 }
 
 /* --------------------------------------------- NavBar --------------------------------------------- */
 .navbar {
-    background-color: #2c3e50;
+    background-color: #34495e; /* שינוי צבע הרקע לנייבר לצבע כהה יותר */
     padding: 1.5em;
 }
+
 .navbar .nav-link {
     color: #f9f9f9;
     font-weight: 700;
@@ -27,28 +25,30 @@ body {
     font-size: 1em;
     will-change: transform; /* שיפור ביצועים */
 }
+
 .navbar .nav-link:hover {
-    color: #e74c3c;
+    color: #e74c3c; /* צבע אדום בהיר בהHover */
     transform: scale(1.05);
-    text-shadow: 0 15px 5px rgba(0, 0, 0, 0.5); /* מוסיף הצללה */
+    text-shadow: 0 15px 5px rgba(0, 0, 0, 0.5); /* הוספת הצללה */
 }
+
 .navbar-brand {
     font-size: 1.8em;
     font-weight: 700;
     color: #f9f9f9;
-    /* color: #e74c3c;  */
     font-family: "Nosifer", sans-serif;
     cursor: pointer;
     transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
-    will-change: transform; /* שיפור ביצועים */
+    will-change: transform;
 }
+
 .navbar-brand:hover {
     transform: scale(1.05);
     color: #e74c3c;
-    text-shadow: 0 15px 5px rgba(0, 0, 0, 0.5); /* מוסיף הצללה */
+    text-shadow: 0 15px 5px rgba(0, 0, 0, 0.5); /* הוספת הצללה */
 }
-.btn-search,
-.btn-jumbotron {
+
+.btn-search {
     text-decoration: none;
     background-color: #e74c3c;
     color: white;
@@ -56,10 +56,11 @@ body {
     padding: 0.6em 1.2em;
     font-weight: 600;
     border-radius: 0.5em;
+    will-change: transform;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
-.btn-search,
-.btn-jumbotron:hover {
+
+.btn-search:hover {
     background-color: #c0392b;
     transform: scale(1.05);
 }
@@ -70,20 +71,19 @@ body {
     box-shadow: none;
     outline: none;
 }
+
 .form-control:focus {
-    outline: none; /* מבטל את הסגנון ברירת המחדל */
-    border-color: #e74c3c; /* צבע מסגרת מותאם אישית */
-    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.3); /* עדין ושקוף */
+    outline: none;
+    border-color: #e74c3c;
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.3);
 }
 
 /* --------------------------------------------- NavBar --------------------------------------------- */
 
 /* --------------------------------------------- Card --------------------------------------------- */
-/* From Uiverse.io by joe-watson-sbf */
 .flip-card {
-    background-color: transparent;
     width: 18rem;
-    height: 380px;
+    height: 354px;
     perspective: 1000px;
     font-family: sans-serif;
 }
@@ -110,7 +110,7 @@ body {
 
 .flip-card-front,
 .flip-card-back {
-    box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.8);
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -119,28 +119,26 @@ body {
     height: 100%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    /* border: 1px solid coral; */
-    /* border-radius: 1rem; */
 }
 
 .flip-card-front {
     background: linear-gradient(
         120deg,
-        bisque 60%,
-        rgb(255, 231, 222) 88%,
-        rgb(255, 211, 195) 40%,
-        rgba(255, 127, 80, 0.603) 48%
+        #4e73df 60%,
+        #4e73df 88%,
+        #2c3e50 40%,
+        rgba(44, 62, 80, 0.8) 48%
     );
-    color: coral;
+    color: #f9f9f9;
 }
 
 .flip-card-back {
     background: linear-gradient(
         120deg,
-        rgb(255, 174, 145) 30%,
-        coral 88%,
-        bisque 40%,
-        rgb(255, 185, 160) 78%
+        #4e73df 30%,
+        #3498db 88%,
+        #2c3e50 40%,
+        #4e73df 78%
     );
     color: white;
     transform: rotateY(180deg);
@@ -152,19 +150,170 @@ body {
     object-fit: cover;
 }
 
+/* --------------------------------------------- Custom Scrollbar for Cards --------------------------------------------- */
+.list-group-flush {
+    overflow-y: auto;
+    max-height: 230px;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    scrollbar-width: thin;
+    scrollbar-color: #3498db #34495e; /* צבעים חדשים: Thumb בצבע כחול, Track אפור כהה */
+    margin-bottom: 4em;
+}
+
+/* דפדפן Webkit (Chrome, Safari, Edge) */
+.list-group-flush::-webkit-scrollbar {
+    width: 8px; /* רוחב הסקולור */
+}
+
+.list-group-flush::-webkit-scrollbar-track {
+    background: #34495e; /* צבע רקע עבור Track */
+    border-radius: 10px;
+}
+
+.list-group-flush::-webkit-scrollbar-thumb {
+    background: #3498db; /* צבע ה-Thumb */
+    border-radius: 10px;
+    border: 2px solid #34495e; /* גבול דק בצבע כהה */
+}
+
+.list-group-flush::-webkit-scrollbar-thumb:hover {
+    background: #1f78b1; /* שינוי צבע ה-Thumb בעת ריחוף */
+}
+
+.list-group-item {
+    background-color: transparent;
+    margin: 1.5rem 0;
+    padding: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.list-group-item span:first-child {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.list-group-item span:last-child {
+    color: #515151;
+    font-weight: bold;
+}
+
+.btn-div-back {
+    position: absolute;
+    top: 17.8rem;
+    left: 5.5rem;
+}
+
+.card-title {
+    font-family: "Poppins", sans-serif;
+}
+
+.card-text {
+    font-family: "Nosifer", sans-serif;
+}
+
+.btn-front,
+.btn-back {
+    text-decoration: none;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    font-weight: 600;
+    border-radius: 0.5em;
+    will-change: transform;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
 .card-body {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-around;
 }
+
+.btn-div-back {
+    position: absolute;
+    top: 18.1rem;
+    left: 6rem;
+}
+
 /* --------------------------------------------- #res --------------------------------------------- */
 #res {
-    margin: 10em 0;
+    margin: 10em 3em;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
-    gap: 1.8rem;
+    gap: 3.8rem;
 }
 /* --------------------------------------------- #res --------------------------------------------- */
+
+/* --------------------------------------------- Footer --------------------------------------------- */
+footer {
+    background-color: #34495e;
+    color: #f9f9f9;
+    padding: 2em 0;
+    text-align: center;
+    font-size: 1em;
+}
+
+footer .navbar-brand {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #f9f9f9;
+    font-family: "Nosifer", sans-serif;
+    cursor: pointer;
+    transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+    will-change: transform;
+    margin-bottom: 1em;
+}
+
+footer .navbar-brand:hover {
+    transform: scale(1.05);
+    color: #e74c3c;
+    text-shadow: 0 15px 5px rgba(0, 0, 0, 0.5);
+}
+
+footer a {
+    color: #f9f9f9;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+footer a:hover {
+    color: #e74c3c;
+    transform: scale(1.05);
+}
+
+footer .social-icons {
+    margin-top: 1em;
+}
+
+footer .social-icons i {
+    color: #f9f9f9;
+    margin: 0 1em;
+    font-size: 1.5em;
+    transition: color 0.3s ease;
+}
+
+footer .social-icons i:hover {
+    color: #e74c3c;
+}
+
+/* עיצובים עבור מסכים ברוחב 320px */
+@media (max-width: 320px) {
+    .navbar-brand {
+        font-size: 19px; /* שינוי גודל הלוגו או שם המותג */
+        padding: 0; /* ביטול ריווח מיותר */
+    }
+    .navbar {
+        padding: 2em 1em;
+    }
+
+    .btn-div-back {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+}

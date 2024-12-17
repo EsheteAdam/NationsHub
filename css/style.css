@@ -10,15 +10,39 @@ body {
     background-color: #2c3e50; /* צבע כהה שמתואם לשאר האתר */
     color: #f9f9f9; /* צבע טקסט בהיר */
 }
+/* Pagination Colors */
 .pagination .page-item.active .page-link {
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: #f39c12; /* Use the same orange as the button hover effect */
+    border-color: #f39c12;
     color: white;
 }
 
 .pagination .page-link {
-    color: #007bff;
+    color: #f39c12; /* Use the same orange for inactive page links */
     border-radius: 0.25rem;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+/* On hover, change the page link color */
+.pagination .page-link:hover {
+    background-color: #1f78b1; /* A subtle blue shade for hover effect */
+    color: white;
+    border-color: #1f78b1;
+}
+
+/* For the active state, use a slightly darker color on hover */
+.pagination .page-item.active .page-link:hover {
+    background-color: #e67e22; /* A darker shade of orange */
+    border-color: #e67e22;
+}
+
+/* Pagination container styles for consistency */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    margin: 1em 0;
 }
 
 /* --------------------------------------------- NavBar --------------------------------------------- */

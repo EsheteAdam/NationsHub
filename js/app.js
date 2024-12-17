@@ -8,6 +8,10 @@ const itemsPerPage = 16;
 let currentPage = 1;
 let allCountries = [];
 
+const init = async () => {
+    await loadCountries();
+};
+
 const renderPage = (page) => {
     currentPage = page;
 
@@ -73,4 +77,4 @@ const loadCountries = async () => {
 };
 
 // התחלת הטעינה
-loadCountries();
+init();

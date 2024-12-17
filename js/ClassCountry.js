@@ -1,3 +1,5 @@
+let currentlyFlippedCard = null; // Track the currently flipped card globally
+
 export class CountryClass {
     constructor(
         countryName,
@@ -83,12 +85,22 @@ export class CountryClass {
 
         // Event listener for "More Info" button (flip to back)
         btnMoreInfo.addEventListener("click", () => {
+            // If another card is flipped, flip it back
+            if (
+                currentlyFlippedCard &&
+                currentlyFlippedCard !== flipCardInner
+            ) {
+                currentlyFlippedCard.style.transform = "rotateY(0deg)";
+            }
+            // Flip the current card
             flipCardInner.style.transform = "rotateY(180deg)";
+            currentlyFlippedCard = flipCardInner; // Set the current card as flipped
         });
 
         // Event listener for "Go Back" button (flip to front)
         btnGoBack.addEventListener("click", () => {
             flipCardInner.style.transform = "rotateY(0deg)";
+            currentlyFlippedCard = null; // Reset flipped card when going back
         });
 
         return cardElement;

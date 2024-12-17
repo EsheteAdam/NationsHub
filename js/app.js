@@ -4,7 +4,7 @@ import { CountryClass } from "./ClassCountry.js";
 
 const resDiv = document.getElementById("res");
 const paginationDiv = document.getElementById("pagination");
-const itemsPerPage = 12;
+const itemsPerPage = 16;
 let currentPage = 1;
 let allCountries = [];
 
@@ -55,7 +55,7 @@ const loadCountries = async () => {
                     country.area || "N/A",
                     country.currencies
                         ? Object.values(country.currencies)
-                              .map((c) => c.name)
+                              .map((c) => `${c.name} (${c.symbol})`)
                               .join(", ")
                         : "N/A",
                     country.languages

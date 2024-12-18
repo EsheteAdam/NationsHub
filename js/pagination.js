@@ -17,7 +17,7 @@ export const createPaginationControls = (
 ) => {
     container.innerHTML = "";
     const ul = document.createElement("ul");
-    ul.className = "pagination justify-content-center mt-4";
+    ul.className = "pagination justify-content-center ";
 
     const addButton = (label, page, isEnabled) => {
         const li = document.createElement("li");

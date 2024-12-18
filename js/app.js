@@ -4,40 +4,40 @@ import { CountryClass } from "./ClassCountry.js";
 
 const resDiv = document.getElementById("res");
 const paginationDiv = document.getElementById("pagination");
+const searchInput = document.getElementById("inputSearch");
 const itemsPerPage = 16;
 let currentPage = 1;
 let allCountries = [];
+let filteredCountries = []; // For storing search results
 
 const init = async () => {
     await loadCountries();
+    addSearchEventListener();
 };
 
-const renderPage = (page) => {
+const renderPage = (page, countries = filteredCountries) => {
     currentPage = page;
 
-    // חישוב עמוד נוכחי
+    // Paginate data
     const { paginatedItems, totalPages } = paginateData(
-        allCountries,
+        countries,
         currentPage,
         itemsPerPage
     );
 
-    // רינדור כרטיסים
-    resDiv.innerHTML = ""; // לאחסן מחדש את התוכן
+    // Render country cards
+    resDiv.innerHTML = "";
     paginatedItems.forEach((country) => {
         const countryCard = country.renderCountryCard();
-        resDiv.appendChild(countryCard); // השתמש ב-appendChild במקום innerHTML
+        resDiv.appendChild(countryCard);
     });
 
-    // מחזיר את הגלילה להתחלה
+    // Scroll to top of the container
     resDiv.scrollTop = 0;
 
-    // יצירת פאגינציה
-    createPaginationControls(
-        paginationDiv,
-        currentPage,
-        totalPages,
-        renderPage
+    // Create pagination controls
+    createPaginationControls(paginationDiv, currentPage, totalPages, (page) =>
+        renderPage(page, countries)
     );
 };
 
@@ -70,11 +70,30 @@ const loadCountries = async () => {
                     country.unMember ? "Yes" : "No"
                 )
         );
+        filteredCountries = allCountries; // Initially display all countries
         renderPage(1);
     } catch (error) {
         console.error("Error loading countries:", error);
     }
 };
 
-// התחלת הטעינה
+const addSearchEventListener = () => {
+    searchInput.addEventListener("input", (e) => {
+        const query = e.target.value.toLowerCase();
+
+        if (query) {
+            // Filter countries by name
+            filteredCountries = allCountries.filter((country) =>
+                country.countryName.toLowerCase().includes(query)
+            );
+        } else {
+            // Reset to show all countries
+            filteredCountries = allCountries;
+        }
+
+        renderPage(1); // Re-render the first page of filtered results
+    });
+};
+
+// Initialize the application
 init();
